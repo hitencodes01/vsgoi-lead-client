@@ -76,7 +76,7 @@ export default function AssociateBoard() {
           VSGOI <span className="text-blue-400">Lead Associate</span>
         </h1>
         <img
-          src="./assets/download.jpg"
+          src="/download.jpg"
           alt="logo"
           className="h-12 w-28 object-cover ring-2 ring-blue-500"
         />
