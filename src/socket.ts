@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-const socket = io("https://huggingface.co/spaces/hitencodes01/vsgoi-lead-server", {
+const socket = io("https://vsgoi-lead-server.onrender.com/", {
   withCredentials: true,
 });
 
