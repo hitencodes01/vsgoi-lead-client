@@ -168,12 +168,12 @@ export default function App() {
           <div className="flex items-center gap-2">
             <div className="flex gap-5 text-white font-extrabold text-lg px-3 py-1 rounded-lg tracking-tight">
               <img
-                src="/download.jpg"
+                src="./assets/download.jpg"
                 alt="logo"
                 className="h-12 w-28  object-cover ring-2 ring-blue-500"
               />
               <img
-                src="/cms.jpg"
+                src="./assets/cms.jpg"
                 alt="logo"
                 className="h-12 w-12  object-cover ring-2 ring-blue-500"
               />

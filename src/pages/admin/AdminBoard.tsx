@@ -87,7 +87,7 @@ export default function AdminBoard() {
           VSGOI <span className="text-blue-400">Lead Admin</span>
         </h1>
         <img
-          src="/download.jpg"
+          src="./assets/download.jpg"
           alt="logo"
           className="h-12 w-28  object-cover ring-2 ring-blue-500"
         />
