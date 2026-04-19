@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL : "https://vsgoi-lead-server.onrender.com/",
+  baseURL : "https://vsgoi-lead-server.onrender.com/api",
   withCredentials: true,
 });
 
