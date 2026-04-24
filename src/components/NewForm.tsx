@@ -10,6 +10,7 @@ export default function NewForm({
   setIsPop: (value: boolean) => void;
 }) {
   const [success, setSuccess] = useState<boolean>(false);
+  const [alreadySubmit, setAlreadySubmit] = useState<boolean>(false);
   const { formData, updateField, resetForm } = useLeadStore();
 
   const handleChange = (
@@ -31,43 +32,53 @@ export default function NewForm({
         localStorage.setItem("leadSubmitted", "true");
         setSuccess(true);
         onSuccess();
+        resetForm();
       }
     } catch (error: any) {
-      console.log(error.response?.data?.message || "Something went wrong");
+      if (error.response?.status === 409) {
+        setAlreadySubmit(true);
+        console.log("already exists");
+      } else {
+        console.log(error.response?.data?.message || "Something went wrong");
+      }
     }
-    resetForm();
   };
 
   return (
     <>
       {!success && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-blue-950/60 backdrop-blur-sm p-4 animate-in fade-in duration-300">
-          {/* Modal Card: Crisp white for legibility, rounded for a modern feel */}
           <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-[0_20px_50px_-12px_rgba(30,58,138,0.3)] overflow-hidden">
-            {/* Header: Deep blue gradient for strong brand presence */}
-            <div className="bg-linear-to-r from-blue-800 to-blue-950 p-6 sm:p-8 text-center relative overflow-hidden">
-              {/* Decorative background element */}
-              <div className="absolute -top-10 -right-10 w-32 h-32 bg-blue-500 rounded-full mix-blend-overlay filter blur-xl opacity-30"></div>
-
+            {/* Header */}
+            <div className="bg-linear-to-br from-blue-800 via-blue-700 to-blue-600 p-6 sm:p-8 text-center relative overflow-hidden">
+              <div className="absolute -top-10 -right-10 w-32 h-32 bg-blue-400 rounded-full mix-blend-overlay filter blur-xl opacity-30" />
               <button
-                className="absolute cursor-pointer top-4 right-4 text-blue-200 hover:text-white hover:bg-white/10 p-2 rounded-full transition-colors z-10"
+                className="absolute cursor-pointer top-4 right-4 rounded-full transition-colors z-10"
                 onClick={() => setIsPop(false)}
                 aria-label="Close"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
+                  x="0px"
+                  y="0px"
+                  width="36"
+                  height="36"
+                  viewBox="0 0 48 48"
                 >
                   <path
-                    fillRule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
+                    fill="#f44336"
+                    d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"
+                  ></path>
+                  <path
+                    fill="#fff"
+                    d="M29.656,15.516l2.828,2.828l-14.14,14.14l-2.828-2.828L29.656,15.516z"
+                  ></path>
+                  <path
+                    fill="#fff"
+                    d="M32.484,29.656l-2.828,2.828l-14.14-14.14l2.828-2.828L32.484,29.656z"
+                  ></path>
                 </svg>
               </button>
-
               <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight relative z-10">
                 Start Your Journey
               </h2>
@@ -79,7 +90,7 @@ export default function NewForm({
             {/* Form Body */}
             <div className="p-6 sm:p-8 bg-slate-50">
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                {/* Name Input */}
+                {/* Name */}
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                     Full Name
@@ -90,12 +101,12 @@ export default function NewForm({
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 outline-none transition-all duration-200"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 focus:-translate-y-0.5 outline-none transition-all duration-200"
                     required
                   />
                 </div>
 
-                {/* Grid for Phone & Email */}
+                {/* Phone & Email */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div className="space-y-1.5">
                     <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">
@@ -109,8 +120,7 @@ export default function NewForm({
                       onChange={handleChange}
                       pattern="[0-9]{10}"
                       maxLength={10}
-                      title="Please enter exactly 10 digits"
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:-translate-y-0.5 focus:shadow-lg focus:border-blue-600 outline-none transition-all duration-300"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 focus:-translate-y-0.5 outline-none transition-all duration-200"
                       required
                     />
                   </div>
@@ -124,13 +134,13 @@ export default function NewForm({
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 outline-none transition-all duration-200"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 focus:-translate-y-0.5 outline-none transition-all duration-200"
                       required
                     />
                   </div>
                 </div>
 
-                {/* Grid for Selects */}
+                {/* Course & Source */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div className="space-y-1.5">
                     <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">
@@ -140,7 +150,7 @@ export default function NewForm({
                       name="interestedCourse"
                       value={formData.interestedCourse}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 outline-none transition-all duration-200 appearance-none"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 outline-none transition-all duration-200 appearance-none"
                       required
                     >
                       <option disabled value="">
@@ -151,10 +161,9 @@ export default function NewForm({
                       <option value="BCA">BCA</option>
                       <option value="BTECH">B-Tech</option>
                       <option value="ITI">ITI</option>
-                      <option value="POLYTECHNIC">POLYTECHNIC</option>
+                      <option value="POLYTECHNIC">Polytechnic</option>
                     </select>
                   </div>
-
                   <div className="space-y-1.5">
                     <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                       Source
@@ -163,7 +172,7 @@ export default function NewForm({
                       name="source"
                       value={formData.source}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 outline-none transition-all duration-200 appearance-none"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 outline-none transition-all duration-200 appearance-none"
                       required
                     >
                       <option disabled value="">
@@ -171,13 +180,13 @@ export default function NewForm({
                       </option>
                       <option value="facebook">Facebook</option>
                       <option value="instagram">Instagram</option>
-                      <option value="wom">Word of mouth</option>
+                      <option value="wom">Word of Mouth</option>
                     </select>
                   </div>
                 </div>
 
-                {/* Custom Checkbox */}
-                <label className="flex items-center gap-3 p-4 border border-slate-200 bg-white rounded-xl cursor-pointer hover:bg-slate-100 hover:border-slate-300 transition-all duration-200 mt-2">
+                {/* Checkbox */}
+                <label className="flex items-center gap-3 p-4 border border-slate-200 bg-white rounded-xl cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition-all duration-200">
                   <div className="relative flex items-center">
                     <input
                       type="checkbox"
@@ -192,8 +201,6 @@ export default function NewForm({
                         className="h-3.5 w-3.5"
                         viewBox="0 0 20 20"
                         fill="currentColor"
-                        stroke="currentColor"
-                        strokeWidth="1"
                       >
                         <path
                           fillRule="evenodd"
@@ -208,15 +215,27 @@ export default function NewForm({
                   </span>
                 </label>
 
-                {/* Vibrant Red Submit Button */}
+                {/* ✅ NEW: 12-hour callback notice */}
+                <div className="flex items-center gap-3 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3">
+                  <span className="inline-block w-2 h-2 min-w-[8px] rounded-full bg-amber-400 animate-pulse" />
+                  <p className="text-xs sm:text-sm font-semibold text-amber-800">
+                    We will reach you within{" "}
+                    <span className="text-amber-600 font-bold">12 hours</span>{" "}
+                    of your callback request.
+                  </p>
+                </div>
+
+                {/* ✅ FIXED: Button with explicit white text color */}
                 <button
                   type="submit"
-                  className="w-full mt-4 bg-red-600 hover:bg-red-700 text-white font-bold text-lg py-4 px-6 rounded-xl shadow-[0_8px_20px_-6px_rgba(220,38,38,0.5)] hover:shadow-[0_12px_25px_-6px_rgba(220,38,38,0.6)] transform hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2"
+                  className="w-full mt-2 bg-red-600 hover:bg-red-700 text-white font-bold text-lg py-4 px-6 rounded-xl shadow-[0_8px_20px_-6px_rgba(220,38,38,0.5)] hover:shadow-[0_12px_25px_-6px_rgba(220,38,38,0.6)] transform hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2"
                 >
-                  Get Callback
+                  <span className="text-white font-bold text-lg">
+                    Get Free Callback
+                  </span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
+                    className="h-5 w-5 text-white transition-transform duration-200 group-hover:translate-x-1"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -233,22 +252,30 @@ export default function NewForm({
         </div>
       )}
 
-      {success && (
-        <div role="alert" className="alert alert-success">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 shrink-0 stroke-current"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          <span>Submit Successfully</span>
+      {(success || alreadySubmit) && (
+        <div className="alert  fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white rounded-xl p-6 shadow-xl text-center max-w-sm w-full">
+            <h2 className="text-xl font-bold mb-2">
+              {success ? "Success" : "Already Submitted"}
+            </h2>
+
+            <p className="text-gray-600 mb-4">
+              {success
+                ? "Submitted Successfully!"
+                : "Thank you! We already have your details."}
+            </p>
+
+            <button
+              onClick={() => {
+                setSuccess(false);
+                setAlreadySubmit(false);
+                setIsPop(false);
+              }}
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg"
+            >
+              Close
+            </button>
+          </div>
         </div>
       )}
     </>
