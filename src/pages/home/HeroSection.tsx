@@ -1,8 +1,8 @@
 import AdmissionMarquee from "../../components/AdmissionMarquee";
 import { useLeadUI } from "../../store/useLeadUI";
-import AnnouncementBar from "./AnnouncementBar";
+
 import Navbar from "./Navbar";
-import SocialLinkBanner from "./SocialLinkBanner";
+
 import TopBar from "./TopBar";
 
 const COURSES = ["B.Tech", "BBA", "BCA", "MBA", "ITI", "Polytechnic"];
@@ -13,24 +13,21 @@ export default function HeroSection() {
   return (
     <div className="min-h-screen flex flex-col bg-base-100">
       {/* <AnnouncementBar /> */}
-      <TopBar/>
+      <TopBar />
       <Navbar />
       <AdmissionMarquee />
       {/* <SocialLinkBanner /> */}
 
       {/* Hero */}
       <section className="relative flex-1 overflow-hidden bg-linear-to-br from-orange-500 via-orange-400 to-yellow-300">
-
         {/* Background Blobs */}
         <div className="absolute top-0 right-0 w-64 sm:w-80 h-64 sm:h-80 bg-blue-800/10 rounded-full -translate-y-1/3 translate-x-1/3 blur-2xl" />
         <div className="absolute bottom-0 left-0 w-72 sm:w-96 h-72 sm:h-96 bg-blue-900/10 rounded-full translate-y-1/3 -translate-x-1/3 blur-2xl" />
 
         {/* Container */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24 flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
-
           {/* LEFT */}
           <div className="flex-1 flex flex-col gap-5 text-white text-center lg:text-left">
-
             {/* Badge */}
             <div>
               <span className="inline-block bg-yellow-300 text-black text-xs sm:text-sm font-bold px-4 py-2 rounded-full shadow-md animate-pulse">
@@ -42,14 +39,13 @@ export default function HeroSection() {
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight">
               No Matter Your Score in Class 12th,
               <br />
-              <span className="text-blue-900">
-                We Shape Your Future
-              </span>
+              <span className="text-blue-900">We Shape Your Future</span>
             </h1>
 
             {/* Subtext */}
             <p className="text-white/90 text-sm sm:text-base md:text-lg max-w-xl mx-auto lg:mx-0">
-              Join thousands of students building successful careers at VSGOI & CMS — Kanpur's trusted institution for quality education.
+              Join thousands of students building successful careers at VSGOI &
+              CMS — Kanpur's trusted institution for quality education.
             </p>
 
             {/* Courses */}
@@ -84,7 +80,6 @@ export default function HeroSection() {
 
           {/* RIGHT */}
           <div className="w-full max-w-md flex flex-col gap-4">
-
             {/* Stats */}
             <div className="grid grid-cols-2 gap-3">
               {[
@@ -100,9 +95,7 @@ export default function HeroSection() {
                   <div className="text-xl sm:text-2xl font-bold">
                     {stat.value}
                   </div>
-                  <div className="text-xs text-white/80 mt-1">
-                    {stat.label}
-                  </div>
+                  <div className="text-xs text-white/80 mt-1">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -123,7 +116,6 @@ export default function HeroSection() {
                 ))}
               </div>
             </div>
-
           </div>
         </div>
       </section>
