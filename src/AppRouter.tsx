@@ -5,10 +5,12 @@ import Protected from "./pages/Protected";
 import AdminDashboard from "./pages/admin/AdminBoard";
 import AssociateBoard from "./pages/associate/AssociateBoard";
 import ViewAssociates from "./pages/admin/components/ViewAssociates";
+import ErpLogin from "./pages/erp/ErpLogin";
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
   { path: "/login", element: <Login /> },
+  { path:"/erp", element : <ErpLogin/>},
   {
     path: "/admin",
     element: (
