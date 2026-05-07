@@ -6,11 +6,17 @@ import AdminDashboard from "./pages/admin/AdminBoard";
 import AssociateBoard from "./pages/associate/AssociateBoard";
 import ViewAssociates from "./pages/admin/components/ViewAssociates";
 import ErpLogin from "./pages/erp/ErpLogin";
+import AdminLogin from "./pages/erp/admin/AdminLogin";
+import FacultyLogin from "./pages/erp/faculty/FacultyLogin";
+import StudentLogin from "./pages/erp/student/StudentLogin";
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
   { path: "/login", element: <Login /> },
-  { path:"/erp", element : <ErpLogin/>},
+  { path: "/erp-login", element: <ErpLogin /> },
+  { path: "/erp/admin", element: <AdminLogin /> },
+  { path: "/erp/faculty", element: <FacultyLogin /> },
+  { path: "/erp/student", element: <StudentLogin /> },
   {
     path: "/admin",
     element: (

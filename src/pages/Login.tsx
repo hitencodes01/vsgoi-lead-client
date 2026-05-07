@@ -32,9 +32,9 @@ function reducer(state: LoginState, actions: LoginActions): LoginState {
 }
 
 export default function Login() {
-  useEffect(()=>{
-      document.title = `VSGOI | Login`
-    },[])
+  useEffect(() => {
+    document.title = `VSGOI | Login`;
+  }, []);
   const { login } = useAuth();
   const [state, dispatch] = useReducer(reducer, {
     userName: "",
@@ -69,7 +69,6 @@ export default function Login() {
   };
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200 px-4 py-12">
-
       {!success && !error && (
         <div className="relative w-full max-w-lg group">
           {/* Decorative Outer Glow */}

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import AdmissionMarquee from "../../components/AdmissionMarquee";
 import { useLeadUI } from "../../store/useLeadUI";
 
@@ -8,15 +9,22 @@ import TopBar from "./TopBar";
 const COURSES = ["B.Tech", "BBA", "BCA", "MBA", "ITI", "Polytechnic"];
 
 export default function HeroSection() {
+  const naviagate = useNavigate();
   const open = useLeadUI((s) => s.open);
 
   return (
     <div className="min-h-screen flex flex-col bg-base-100">
-      {/* <AnnouncementBar /> */}
       <TopBar />
       <Navbar />
       <AdmissionMarquee />
-      {/* <SocialLinkBanner /> */}
+
+      <button
+        onClick={() => naviagate("/erp-login")}
+        className="fixed btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl top-1/2 right-2 -translate-y-1/2 z-9999 bg-white/50 text-black font-bold
+              px-4 py-2 rounded-lg shadow-lg shadow-black"
+      >
+        ERP Login
+      </button>
 
       {/* Hero */}
       <section className="relative flex-1 overflow-hidden bg-linear-to-br from-orange-500 via-orange-400 to-yellow-300">
